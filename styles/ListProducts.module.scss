@@ -1,0 +1,24 @@
+$table-border-color: #ddd;
+$table-head-color: rgb(198, 180, 255);
+
+.table {
+  margin: 12px;
+  border: 1px solid $table-border-color;
+  border-collapse: collapse;
+  width: 100%;
+  tbody {
+    tr {
+      th {
+        border: 1px solid $table-border-color;
+        padding: 8px;
+        background-color: $table-head-color;
+      }
+    }
+    tr {
+      td {
+        border: 1px solid $table-border-color;
+        padding: 8px;
+      }
+    }
+  }
+}
