@@ -1,4 +1,4 @@
-import styles from "../../styles/ListProducts.module.scss";
+import styles from "../../styles/List.module.scss";
 
 const ListProducts = ({ products }) => {
   return (
