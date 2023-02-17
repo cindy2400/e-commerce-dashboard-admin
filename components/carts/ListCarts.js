@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "../../styles/List.module.scss";
 
 const ListCarts = ({ carts }) => {
@@ -23,7 +24,7 @@ const ListCarts = ({ carts }) => {
               <td>{carts.totalProducts}</td>
               <td>{carts.totalQuantity}</td>
               <td>
-                <button>Detail</button>
+                <Link href={`/carts/${carts.id}`}>Detail</Link>
               </td>
             </tr>
           );

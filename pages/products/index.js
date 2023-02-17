@@ -1,8 +1,9 @@
 import ListProducts from "@/components/products/ListProducts";
+import styles from "../../styles/Carts.module.scss";
 
 const Products = ({ products }) => {
   return (
-    <div>
+    <div className={styles.container}>
       <ListProducts products={products} />
     </div>
   );
