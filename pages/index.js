@@ -1,26 +1,22 @@
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  Legend,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
+import { Pie, PieChart, Tooltip } from "recharts";
 import styles from "../styles/Home.module.scss";
 
 export default function Home({ brands }) {
   return (
     <div className={styles.container}>
       <h3>Chart of the number of items per Brand</h3>
-      <BarChart width={730} height={250} data={brands}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="brand" />
-        <YAxis />
+      <PieChart width={500} height={300}>
+        <Pie
+          data={brands}
+          dataKey="totalItems"
+          nameKey="brand"
+          cx="50%"
+          cy="50%"
+          outerRadius={100}
+          fill="#82ca9d"
+        />
         <Tooltip />
-        <Legend />
-        <Bar dataKey="totalItems" fill="#82ca9d" />
-      </BarChart>
+      </PieChart>
     </div>
   );
 }
