@@ -4,6 +4,7 @@ import SidebarMenu from "./SidebarMenu";
 const Sidebar = () => {
   return (
     <div className={styles.sidebar}>
+      <SidebarMenu menuName="Dashboard" linkTo="/" />
       <SidebarMenu menuName="Products" linkTo="/products" />
       <SidebarMenu menuName="Carts" linkTo="/carts" />
     </div>
