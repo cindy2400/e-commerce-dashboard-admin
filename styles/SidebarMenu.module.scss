@@ -1,11 +1,25 @@
 $sidebar-color: rgb(163, 136, 253);
 
 .sidebar-menu-button {
+  margin: 10px;
   color: white;
-  font-weight: 700;
+  font-weight: 500;
   font-size: 18px;
   padding: 18px;
   text-decoration: none;
   background-color: $sidebar-color;
+  border: 0;
+}
+
+.sidebar-menu-button-active {
+  width: 70%;
+  border-radius: 10px;
+  margin: 10px;
+  color: black;
+  font-weight: 700;
+  font-size: 18px;
+  padding: 14px;
+  text-decoration: none;
+  background-color: white;
   border: 0;
 }
