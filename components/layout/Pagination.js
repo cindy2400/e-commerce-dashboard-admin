@@ -1,4 +1,11 @@
-const Pagination = ({ itemsPerPage, totalItems, paginateHandler }) => {
+import styles from "../../styles/Pagination.module.scss";
+
+const Pagination = ({
+  itemsPerPage,
+  totalItems,
+  paginateHandler,
+  currentPage,
+}) => {
   const pageNumbers = [];
 
   for (let i = 1; i <= Math.ceil(totalItems / itemsPerPage); i++) {
@@ -6,9 +13,13 @@ const Pagination = ({ itemsPerPage, totalItems, paginateHandler }) => {
   }
 
   return (
-    <div>
+    <div className={styles.pagination}>
       {pageNumbers.map((num) => (
-        <button key={num} onClick={() => paginateHandler(num)}>
+        <button
+          key={num}
+          className={currentPage === num ? styles.active : ""}
+          onClick={() => paginateHandler(num)}
+        >
           {num}
         </button>
       ))}

@@ -3,9 +3,9 @@ import ListProductsInDetailCart from "./ListProductsInDetailCart";
 
 const DetailCart = ({ cart }) => {
   return (
-    <>
+    <div className={styles.container}>
       <h4>Detail</h4>
-      <div className={styles.container}>
+      <div className={styles["container-detail"]}>
         <div>
           <p>
             <b>Name :</b> {cart.firstName} {cart.lastName}
@@ -36,7 +36,7 @@ const DetailCart = ({ cart }) => {
       </div>
       <h4>Products</h4>
       <ListProductsInDetailCart products={cart.products} />
-    </>
+    </div>
   );
 };
 

@@ -11,21 +11,24 @@ const ListCarts = ({ carts }) => {
           <th>Discounted total</th>
           <th>Total products</th>
           <th>Total quantity</th>
-          <th>Detail</th>
         </tr>
         {carts.map((carts) => {
           return (
             <tr key={carts.id}>
               <td>
-                {carts.firstName} {carts.lastName}
+                <Link href={`/carts/${carts.id}`}>
+                  <button className={styles["button-detail"]}>
+                    {carts.firstName} {carts.lastName}
+                  </button>
+                </Link>
               </td>
               <td>{carts.total}</td>
               <td>{carts.discountedTotal}</td>
               <td>{carts.totalProducts}</td>
               <td>{carts.totalQuantity}</td>
-              <td>
+              {/* <td>
                 <Link href={`/carts/${carts.id}`}>Detail</Link>
-              </td>
+              </td> */}
             </tr>
           );
         })}

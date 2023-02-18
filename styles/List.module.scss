@@ -8,6 +8,7 @@ $table-head-color: rgb(198, 180, 255);
   tbody {
     tr {
       th {
+        width: 15%;
         border: 1px solid $table-border-color;
         padding: 8px;
         background-color: $table-head-color;
@@ -15,9 +16,14 @@ $table-head-color: rgb(198, 180, 255);
     }
     tr {
       td {
+        width: 150px;
         border: 1px solid $table-border-color;
         padding: 8px;
       }
     }
   }
+}
+
+.button-detail {
+  width: 100%;
 }

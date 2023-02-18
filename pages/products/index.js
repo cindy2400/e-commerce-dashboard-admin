@@ -1,4 +1,5 @@
 import Pagination from "@/components/layout/Pagination";
+import SearchBar from "@/components/layout/SearchBar";
 import ListProducts from "@/components/products/ListProducts";
 import { useEffect, useMemo, useState } from "react";
 import styles from "../../styles/Carts.module.scss";
@@ -40,16 +41,14 @@ const Products = ({ products }) => {
 
   return (
     <div className={styles.container}>
-      <input
-        type="text"
-        placeholder="Search"
-        onChange={(e) => setSearchText(e.target.value)}
-      />
+      <h2>Products</h2>
+      <SearchBar setSearchText={setSearchText} />
       <ListProducts products={currentProducts} />
       <Pagination
         itemsPerPage={productsPerPage}
         totalItems={productsState.length}
         paginateHandler={paginateHandler}
+        currentPage={currentPage}
       />
     </div>
   );

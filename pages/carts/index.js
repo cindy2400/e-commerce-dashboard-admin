@@ -28,11 +28,13 @@ const Carts = ({ carts }) => {
 
   return (
     <div className={styles.container}>
+      <h2>Carts</h2>
       <ListCarts carts={currentCarts} />
       <Pagination
         itemsPerPage={cartsPerPage}
         totalItems={carts.length}
         paginateHandler={paginateHandler}
+        currentPage={currentPage}
       />
     </div>
   );

@@ -1,6 +1,10 @@
 $container-color: rgb(198, 180, 255);
 
 .container {
+  margin: 30px;
+}
+
+.container-detail {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
