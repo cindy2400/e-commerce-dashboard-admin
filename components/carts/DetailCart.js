@@ -4,6 +4,7 @@ import ListProductsInDetailCart from "./ListProductsInDetailCart";
 const DetailCart = ({ cart }) => {
   return (
     <>
+      <h4>Detail</h4>
       <div className={styles.container}>
         <div>
           <p>
@@ -33,6 +34,7 @@ const DetailCart = ({ cart }) => {
           </p>
         </div>
       </div>
+      <h4>Products</h4>
       <ListProductsInDetailCart products={cart.products} />
     </>
   );
