@@ -1,22 +1,11 @@
-import { Pie, PieChart, Tooltip } from "recharts";
+import Dashboard from "@/components/dashboard/Dashboard";
 import styles from "../styles/Home.module.scss";
 
 export default function Home({ brands }) {
   return (
     <div className={styles.container}>
       <h3>Chart of the number of items per Brand</h3>
-      <PieChart width={500} height={300}>
-        <Pie
-          data={brands}
-          dataKey="totalItems"
-          nameKey="brand"
-          cx="50%"
-          cy="50%"
-          outerRadius={100}
-          fill="#82ca9d"
-        />
-        <Tooltip />
-      </PieChart>
+      <Dashboard brands={brands} />
     </div>
   );
 }
