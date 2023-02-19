@@ -17,7 +17,7 @@ const Pagination = ({
       {pageNumbers.map((num) => (
         <button
           key={num}
-          className={currentPage === num ? styles.active : ""}
+          className={+currentPage === num ? styles.active : ""}
           onClick={() => paginateHandler(num)}
         >
           {num}

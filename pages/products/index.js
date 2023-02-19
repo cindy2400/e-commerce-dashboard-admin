@@ -1,61 +1,94 @@
 import Pagination from "@/components/layout/Pagination";
 import SearchBar from "@/components/layout/SearchBar";
 import ListProducts from "@/components/products/ListProducts";
-import { useEffect, useMemo, useState } from "react";
-import styles from "../../styles/Carts.module.scss";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import styles from "../../styles/Products.module.scss";
 
 const Products = ({ products }) => {
   const [productsState, setProductState] = useState(products);
   const [searchText, setSearchText] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [filterBrands, setFilterBrands] = useState("");
+  const router = useRouter();
+  const { page, search } = router.query;
   const productsPerPage = 10;
+  const skip = ((page || 1) - 1) * productsPerPage;
+
+  useEffect(() => {
+    if (search === undefined && page === undefined) return;
+    if ((search === undefined || search === "") && page !== undefined) {
+      fetch(
+        `https://dummyjson.com/products?limit=${productsPerPage}&skip=${skip}`
+      )
+        .then((res) => res.json())
+        .then((data) => setProductState(data.products));
+      return;
+    }
+    fetch(
+      `https://dummyjson.com/products/search?q=${search}&limit=${productsPerPage}&skip=${skip}`
+    )
+      .then((res) => res.json())
+      .then((data) => setProductState(data.products));
+  }, [search, page]);
 
   useEffect(() => {
     if (searchText === null) return;
     const searchTimeout = setTimeout(() => {
-      fetch(`https://dummyjson.com/products/search?q=${searchText}`)
-        .then((res) => res.json())
-        .then((data) => setProductState(data.products));
+      if (searchText === "") {
+        router.push(`/products`);
+        setProductState(products);
+      } else {
+        router.push(`/products?search=${searchText}`);
+      }
     }, 500);
     return () => clearTimeout(searchTimeout);
   }, [searchText]);
 
-  const indexOfLastProduct = useMemo(
-    () => currentPage * productsPerPage,
-    [currentPage]
-  );
-
-  const indexOfFirstProduct = useMemo(
-    () => indexOfLastProduct - productsPerPage,
-    [indexOfLastProduct]
-  );
-
-  const currentProducts = useMemo(
-    () => productsState.slice(indexOfFirstProduct, indexOfLastProduct),
-    [indexOfFirstProduct, indexOfLastProduct, productsState]
-  );
-
   const paginateHandler = (pageNumbers) => {
-    setCurrentPage(pageNumbers);
+    if (search !== undefined) {
+    }
+    router.push(`/products?page=${pageNumbers}`);
+  };
+
+  const brands = ["a", "b", "c", "d", "e"];
+
+  const changeFilterBrandsHandler = (e) => {
+    setFilterBrands(e.target.value);
   };
 
   return (
     <div className={styles.container}>
       <h2>Products</h2>
-      <SearchBar setSearchText={setSearchText} />
-      <ListProducts products={currentProducts} />
+
+      <div className={styles["search-filter-container"]}>
+        <SearchBar setSearchText={setSearchText} />
+        <select
+          className={styles.select}
+          value={filterBrands}
+          onChange={changeFilterBrandsHandler}
+        >
+          <option value="ALL">All</option>
+          {brands.map((brand) => (
+            <option key={brand} value={brand}>
+              {brand}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <ListProducts products={productsState} />
       <Pagination
         itemsPerPage={productsPerPage}
-        totalItems={productsState.length}
+        totalItems={100}
         paginateHandler={paginateHandler}
-        currentPage={currentPage}
+        currentPage={page}
       />
     </div>
   );
 };
 
 export async function getStaticProps() {
-  const products = await fetch("https://dummyjson.com/products?limit=100");
+  const products = await fetch("https://dummyjson.com/products?limit=10");
   const dataProducts = await products.json();
 
   return {

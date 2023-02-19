@@ -3,3 +3,17 @@
   margin-top: 30px;
   margin-bottom: 30px;
 }
+
+.select {
+  width: 150px;
+  height: 30px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  margin-left: 20px;
+}
+
+.search-filter-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
