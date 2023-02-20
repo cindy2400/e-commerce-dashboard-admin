@@ -1,6 +1,7 @@
 import Pagination from "@/components/layout/Pagination";
 import SearchBar from "@/components/layout/SearchBar";
 import ListProducts from "@/components/products/ListProducts";
+import { brands, categories, products } from "@/public/dummy_data";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styles from "../../styles/Products.module.scss";
@@ -29,7 +30,7 @@ const Products = ({ products, brands, categories }) => {
         price_from === undefined &&
         price_to === undefined
       ) {
-        fetch(`http://localhost:3000/api/products?page=${pageClick}`)
+        fetch(`/api/products?page=${pageClick}`)
           .then((res) => res.json())
           .then((data) => {
             setProductState(data.data.products);
@@ -45,7 +46,7 @@ const Products = ({ products, brands, categories }) => {
         price_to !== undefined
       ) {
         fetch(
-          `http://localhost:3000/api/products?search=${search}&brand=${brand}&category=${category}&price_from=${price_from}&price_to=${price_to}&page=${pageClick}`
+          `/api/products?search=${search}&brand=${brand}&category=${category}&price_from=${price_from}&price_to=${price_to}&page=${pageClick}`
         )
           .then((res) => res.json())
           .then((data) => {
@@ -61,9 +62,7 @@ const Products = ({ products, brands, categories }) => {
         price_from === undefined &&
         price_to === undefined
       ) {
-        fetch(
-          `http://localhost:3000/api/products?search=${search}&page=${pageClick}`
-        )
+        fetch(`/api/products?search=${search}&page=${pageClick}`)
           .then((res) => res.json())
           .then((data) => {
             setProductState(data.data.products);
@@ -78,9 +77,7 @@ const Products = ({ products, brands, categories }) => {
         price_from === undefined &&
         price_to === undefined
       ) {
-        fetch(
-          `http://localhost:3000/api/products?brand=${brand}&page=${pageClick}`
-        )
+        fetch(`/api/products?brand=${brand}&page=${pageClick}`)
           .then((res) => res.json())
           .then((data) => {
             setProductState(data.data.products);
@@ -95,9 +92,7 @@ const Products = ({ products, brands, categories }) => {
         price_from === undefined &&
         price_to === undefined
       ) {
-        fetch(
-          `http://localhost:3000/api/products?category=${category}&page=${pageClick}`
-        )
+        fetch(`/api/products?category=${category}&page=${pageClick}`)
           .then((res) => res.json())
           .then((data) => {
             setProductState(data.data.products);
@@ -113,7 +108,7 @@ const Products = ({ products, brands, categories }) => {
         price_to !== undefined
       ) {
         fetch(
-          `http://localhost:3000/api/products?price_from=${price_from}&price_to=${price_to}&page=${pageClick}`
+          `/api/products?price_from=${price_from}&price_to=${price_to}&page=${pageClick}`
         )
           .then((res) => res.json())
           .then((data) => {
@@ -129,9 +124,7 @@ const Products = ({ products, brands, categories }) => {
         price_from === undefined &&
         price_to === undefined
       ) {
-        fetch(
-          `http://localhost:3000/api/products?search=${search}&brand=${brand}&page=${pageClick}`
-        )
+        fetch(`/api/products?search=${search}&brand=${brand}&page=${pageClick}`)
           .then((res) => res.json())
           .then((data) => {
             setProductState(data.data.products);
@@ -147,7 +140,7 @@ const Products = ({ products, brands, categories }) => {
         price_to === undefined
       ) {
         fetch(
-          `http://localhost:3000/api/products?search=${search}&category=${category}&page=${pageClick}`
+          `/api/products?search=${search}&category=${category}&page=${pageClick}`
         )
           .then((res) => res.json())
           .then((data) => {
@@ -164,7 +157,7 @@ const Products = ({ products, brands, categories }) => {
         price_to !== undefined
       ) {
         fetch(
-          `http://localhost:3000/api/products?search=${search}&price_from=${price_from}&price_to=${price_to}&page=${pageClick}`
+          `/api/products?search=${search}&price_from=${price_from}&price_to=${price_to}&page=${pageClick}`
         )
           .then((res) => res.json())
           .then((data) => {
@@ -181,7 +174,7 @@ const Products = ({ products, brands, categories }) => {
         price_to === undefined
       ) {
         fetch(
-          `http://localhost:3000/api/products?brand=${brand}&category=${category}&page=${pageClick}`
+          `/api/products?brand=${brand}&category=${category}&page=${pageClick}`
         )
           .then((res) => res.json())
           .then((data) => {
@@ -198,7 +191,7 @@ const Products = ({ products, brands, categories }) => {
         price_to !== undefined
       ) {
         fetch(
-          `http://localhost:3000/api/products?brand=${brand}&price_from=${price_from}&price_to=${price_to}&page=${pageClick}`
+          `/api/products?brand=${brand}&price_from=${price_from}&price_to=${price_to}&page=${pageClick}`
         )
           .then((res) => res.json())
           .then((data) => {
@@ -215,7 +208,7 @@ const Products = ({ products, brands, categories }) => {
         price_to !== undefined
       ) {
         fetch(
-          `http://localhost:3000/api/products?category=${category}&price_from=${price_from}&price_to=${price_to}&page=${pageClick}`
+          `/api/products?category=${category}&price_from=${price_from}&price_to=${price_to}&page=${pageClick}`
         )
           .then((res) => res.json())
           .then((data) => {
@@ -232,7 +225,7 @@ const Products = ({ products, brands, categories }) => {
         price_to === undefined
       ) {
         fetch(
-          `http://localhost:3000/api/products?search=${search}&brand=${brand}&category=${category}&page=${pageClick}`
+          `/api/products?search=${search}&brand=${brand}&category=${category}&page=${pageClick}`
         )
           .then((res) => res.json())
           .then((data) => {
@@ -249,7 +242,7 @@ const Products = ({ products, brands, categories }) => {
         price_to !== undefined
       ) {
         fetch(
-          `http://localhost:3000/api/products?search=${search}&category=${category}&price_from=${price_from}&price_to=${price_to}&page=${pageClick}`
+          `/api/products?search=${search}&category=${category}&price_from=${price_from}&price_to=${price_to}&page=${pageClick}`
         )
           .then((res) => res.json())
           .then((data) => {
@@ -266,7 +259,7 @@ const Products = ({ products, brands, categories }) => {
         price_to !== undefined
       ) {
         fetch(
-          `http://localhost:3000/api/products?brand=${brand}&category=${category}&price_from=${price_from}&price_to=${price_to}&page=${pageClick}`
+          `/api/products?brand=${brand}&category=${category}&price_from=${price_from}&price_to=${price_to}&page=${pageClick}`
         )
           .then((res) => res.json())
           .then((data) => {
@@ -504,23 +497,15 @@ const Products = ({ products, brands, categories }) => {
 };
 
 export async function getStaticProps() {
-  const products = await fetch("http://localhost:3000/api/products");
-  const dataProducts = await products.json();
-  const allProducts = dataProducts.data.products;
-
-  const brands = await fetch("http://localhost:3000/api/brands");
-  const dataBrands = await brands.json();
-  const allBrands = dataBrands.data.brands;
-
-  const categories = await fetch("http://localhost:3000/api/categories");
-  const dataCategories = await categories.json();
-  const allCategories = dataCategories.data.categories;
+  const initialProducts = products.slice(0, 10);
+  const initialBrands = brands;
+  const initialCategories = categories;
 
   return {
     props: {
-      products: allProducts,
-      brands: allBrands,
-      categories: allCategories,
+      products: initialProducts,
+      brands: initialBrands,
+      categories: initialCategories,
     },
   };
 }
