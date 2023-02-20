@@ -424,8 +424,11 @@ const Products = ({ products, brands, categories }) => {
           `/products?brand=${filterBrands}&category=${filterCategory}&price_from=${filterPriceFrom}&price_to=${filterPriceTo}`
         );
       }
+      setPageClick(1);
     }, 500);
-    return () => clearTimeout(routerTimeout);
+    return () => {
+      clearTimeout(routerTimeout);
+    };
   }, [
     searchText,
     filterBrands,
@@ -442,10 +445,10 @@ const Products = ({ products, brands, categories }) => {
     <div className={styles.container}>
       <h2>Products</h2>
       <div className={styles["search-filter-container"]}>
-        <SearchBar value={search} setSearchText={setSearchText} />
+        <SearchBar value={searchText} setSearchText={setSearchText} />
         <select
           className={styles.select}
-          value={brand}
+          value={filterBrands}
           onChange={(e) => setFilterBrands(e.target.value)}
         >
           <option value="">All</option>
@@ -457,7 +460,7 @@ const Products = ({ products, brands, categories }) => {
         </select>
         <select
           className={styles.select}
-          value={category}
+          value={filterCategory}
           onChange={(e) => setFilterCategory(e.target.value)}
         >
           <option value="">All</option>
@@ -470,14 +473,14 @@ const Products = ({ products, brands, categories }) => {
         <input
           type="number"
           placeholder="Price from"
-          value={price_from}
+          value={filterPriceFrom}
           className={styles.input}
           onChange={(e) => setFilterPriceFrom(e.target.value)}
         />
         <input
           type="number"
           placeholder="Price to"
-          value={price_to}
+          value={filterPriceTo}
           className={styles.input}
           onChange={(e) => setFilterPriceTo(e.target.value)}
         />
