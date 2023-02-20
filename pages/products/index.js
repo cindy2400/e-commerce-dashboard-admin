@@ -22,406 +22,69 @@ const Products = ({ products, brands, categories }) => {
   const { search, brand, category, price_from, price_to } = router.query;
 
   useEffect(() => {
-    const fetchTimeout = setTimeout(() => {
-      if (
-        search === undefined &&
-        brand === undefined &&
-        category === undefined &&
-        price_from === undefined &&
-        price_to === undefined
-      ) {
-        fetch(`/api/products?page=${pageClick}`)
-          .then((res) => res.json())
-          .then((data) => {
-            setProductState(data.data.products);
-            setPage(data.data.page);
-            setItemPerPage(data.data.item_per_page);
-            setTotalItems(data.data.total_items);
-          });
-      } else if (
-        search !== undefined &&
-        brand !== undefined &&
-        category !== undefined &&
-        price_from !== undefined &&
-        price_to !== undefined
-      ) {
-        fetch(
-          `/api/products?search=${search}&brand=${brand}&category=${category}&price_from=${price_from}&price_to=${price_to}&page=${pageClick}`
-        )
-          .then((res) => res.json())
-          .then((data) => {
-            setProductState(data.data.products);
-            setPage(data.data.page);
-            setItemPerPage(data.data.item_per_page);
-            setTotalItems(data.data.total_items);
-          });
-      } else if (
-        search !== undefined &&
-        brand === undefined &&
-        category === undefined &&
-        price_from === undefined &&
-        price_to === undefined
-      ) {
-        fetch(`/api/products?search=${search}&page=${pageClick}`)
-          .then((res) => res.json())
-          .then((data) => {
-            setProductState(data.data.products);
-            setPage(data.data.page);
-            setItemPerPage(data.data.item_per_page);
-            setTotalItems(data.data.total_items);
-          });
-      } else if (
-        search === undefined &&
-        brand !== undefined &&
-        category === undefined &&
-        price_from === undefined &&
-        price_to === undefined
-      ) {
-        fetch(`/api/products?brand=${brand}&page=${pageClick}`)
-          .then((res) => res.json())
-          .then((data) => {
-            setProductState(data.data.products);
-            setPage(data.data.page);
-            setItemPerPage(data.data.item_per_page);
-            setTotalItems(data.data.total_items);
-          });
-      } else if (
-        search === undefined &&
-        brand === undefined &&
-        category !== undefined &&
-        price_from === undefined &&
-        price_to === undefined
-      ) {
-        fetch(`/api/products?category=${category}&page=${pageClick}`)
-          .then((res) => res.json())
-          .then((data) => {
-            setProductState(data.data.products);
-            setPage(data.data.page);
-            setItemPerPage(data.data.item_per_page);
-            setTotalItems(data.data.total_items);
-          });
-      } else if (
-        search === undefined &&
-        brand === undefined &&
-        category === undefined &&
-        price_from !== undefined &&
-        price_to !== undefined
-      ) {
-        fetch(
-          `/api/products?price_from=${price_from}&price_to=${price_to}&page=${pageClick}`
-        )
-          .then((res) => res.json())
-          .then((data) => {
-            setProductState(data.data.products);
-            setPage(data.data.page);
-            setItemPerPage(data.data.item_per_page);
-            setTotalItems(data.data.total_items);
-          });
-      } else if (
-        search !== undefined &&
-        brand !== undefined &&
-        category === undefined &&
-        price_from === undefined &&
-        price_to === undefined
-      ) {
-        fetch(`/api/products?search=${search}&brand=${brand}&page=${pageClick}`)
-          .then((res) => res.json())
-          .then((data) => {
-            setProductState(data.data.products);
-            setPage(data.data.page);
-            setItemPerPage(data.data.item_per_page);
-            setTotalItems(data.data.total_items);
-          });
-      } else if (
-        search !== undefined &&
-        brand === undefined &&
-        category !== undefined &&
-        price_from === undefined &&
-        price_to === undefined
-      ) {
-        fetch(
-          `/api/products?search=${search}&category=${category}&page=${pageClick}`
-        )
-          .then((res) => res.json())
-          .then((data) => {
-            setProductState(data.data.products);
-            setPage(data.data.page);
-            setItemPerPage(data.data.item_per_page);
-            setTotalItems(data.data.total_items);
-          });
-      } else if (
-        search !== undefined &&
-        brand === undefined &&
-        category === undefined &&
-        price_from !== undefined &&
-        price_to !== undefined
-      ) {
-        fetch(
-          `/api/products?search=${search}&price_from=${price_from}&price_to=${price_to}&page=${pageClick}`
-        )
-          .then((res) => res.json())
-          .then((data) => {
-            setProductState(data.data.products);
-            setPage(data.data.page);
-            setItemPerPage(data.data.item_per_page);
-            setTotalItems(data.data.total_items);
-          });
-      } else if (
-        search === undefined &&
-        brand !== undefined &&
-        category !== undefined &&
-        price_from === undefined &&
-        price_to === undefined
-      ) {
-        fetch(
-          `/api/products?brand=${brand}&category=${category}&page=${pageClick}`
-        )
-          .then((res) => res.json())
-          .then((data) => {
-            setProductState(data.data.products);
-            setPage(data.data.page);
-            setItemPerPage(data.data.item_per_page);
-            setTotalItems(data.data.total_items);
-          });
-      } else if (
-        search === undefined &&
-        brand !== undefined &&
-        category === undefined &&
-        price_from !== undefined &&
-        price_to !== undefined
-      ) {
-        fetch(
-          `/api/products?brand=${brand}&price_from=${price_from}&price_to=${price_to}&page=${pageClick}`
-        )
-          .then((res) => res.json())
-          .then((data) => {
-            setProductState(data.data.products);
-            setPage(data.data.page);
-            setItemPerPage(data.data.item_per_page);
-            setTotalItems(data.data.total_items);
-          });
-      } else if (
-        search === undefined &&
-        brand === undefined &&
-        category !== undefined &&
-        price_from !== undefined &&
-        price_to !== undefined
-      ) {
-        fetch(
-          `/api/products?category=${category}&price_from=${price_from}&price_to=${price_to}&page=${pageClick}`
-        )
-          .then((res) => res.json())
-          .then((data) => {
-            setProductState(data.data.products);
-            setPage(data.data.page);
-            setItemPerPage(data.data.item_per_page);
-            setTotalItems(data.data.total_items);
-          });
-      } else if (
-        search !== undefined &&
-        brand !== undefined &&
-        category !== undefined &&
-        price_from === undefined &&
-        price_to === undefined
-      ) {
-        fetch(
-          `/api/products?search=${search}&brand=${brand}&category=${category}&page=${pageClick}`
-        )
-          .then((res) => res.json())
-          .then((data) => {
-            setProductState(data.data.products);
-            setPage(data.data.page);
-            setItemPerPage(data.data.item_per_page);
-            setTotalItems(data.data.total_items);
-          });
-      } else if (
-        search !== undefined &&
-        brand === undefined &&
-        category !== undefined &&
-        price_from !== undefined &&
-        price_to !== undefined
-      ) {
-        fetch(
-          `/api/products?search=${search}&category=${category}&price_from=${price_from}&price_to=${price_to}&page=${pageClick}`
-        )
-          .then((res) => res.json())
-          .then((data) => {
-            setProductState(data.data.products);
-            setPage(data.data.page);
-            setItemPerPage(data.data.item_per_page);
-            setTotalItems(data.data.total_items);
-          });
-      } else if (
-        search === undefined &&
-        brand !== undefined &&
-        category !== undefined &&
-        price_from !== undefined &&
-        price_to !== undefined
-      ) {
-        fetch(
-          `/api/products?brand=${brand}&category=${category}&price_from=${price_from}&price_to=${price_to}&page=${pageClick}`
-        )
-          .then((res) => res.json())
-          .then((data) => {
-            setProductState(data.data.products);
-            setPage(data.data.page);
-            setItemPerPage(data.data.item_per_page);
-            setTotalItems(data.data.total_items);
-          });
-      }
-    }, 500);
-
-    return () => clearTimeout(fetchTimeout);
+    if (
+      search === undefined &&
+      brand === undefined &&
+      category === undefined &&
+      price_from === undefined &&
+      price_to === undefined
+    ) {
+      return;
+    }
+    fetch(
+      `/api/products?search=${search || ""}&brand=${brand || ""}&category=${
+        category || ""
+      }&price_from=${price_from || ""}&price_to=${
+        price_to || ""
+      }&page=${pageClick}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setProductState(data.data.products);
+        setPage(data.data.page);
+        setItemPerPage(data.data.item_per_page);
+        setTotalItems(data.data.total_items);
+      });
   }, [search, brand, category, price_from, price_to, pageClick]);
 
   useEffect(() => {
-    const routerTimeout = setTimeout(() => {
-      if (
-        searchText === "" &&
-        filterBrands === "" &&
-        filterCategory === "" &&
-        filterPriceFrom === "" &&
-        filterPriceTo === ""
-      ) {
-        router.push(`/products`);
-      } else if (
-        searchText !== "" &&
-        filterBrands !== "" &&
-        filterCategory !== "" &&
-        filterPriceFrom !== "" &&
-        filterPriceTo !== ""
-      ) {
-        router.push(
-          `/products?search=${searchText}&brand=${filterBrands}&category=${filterCategory}&price_from=${filterPriceFrom}&price_to=${filterPriceTo}`
-        );
-      } else if (
-        searchText !== "" &&
-        filterBrands === "" &&
-        filterCategory === "" &&
-        filterPriceFrom === "" &&
-        filterPriceTo === ""
-      ) {
-        router.push(`/products?search=${searchText}`);
-      } else if (
-        searchText === "" &&
-        filterBrands !== "" &&
-        filterCategory === "" &&
-        filterPriceFrom === "" &&
-        filterPriceTo === ""
-      ) {
-        router.push(`/products?brand=${filterBrands}`);
-      } else if (
-        searchText === "" &&
-        filterBrands === "" &&
-        filterCategory !== "" &&
-        filterPriceFrom === "" &&
-        filterPriceTo === ""
-      ) {
-        router.push(`/products?category=${filterCategory}`);
-      } else if (
-        searchText === "" &&
-        filterBrands === "" &&
-        filterCategory === "" &&
-        filterPriceFrom !== "" &&
-        filterPriceTo !== ""
-      ) {
-        router.push(
-          `/products?price_from=${filterPriceFrom}&price_to=${filterPriceTo}`
-        );
-      } else if (
-        searchText !== "" &&
-        filterBrands !== "" &&
-        filterCategory === "" &&
-        filterPriceFrom === "" &&
-        filterPriceTo === ""
-      ) {
-        router.push(`/products?search=${searchText}&brand=${filterBrands}`);
-      } else if (
-        searchText !== "" &&
-        filterBrands === "" &&
-        filterCategory !== "" &&
-        filterPriceFrom === "" &&
-        filterPriceTo === ""
-      ) {
-        router.push(
-          `/products?search=${searchText}&category=${filterCategory}`
-        );
-      } else if (
-        searchText !== "" &&
-        filterBrands === "" &&
-        filterCategory === "" &&
-        filterPriceFrom !== "" &&
-        filterPriceTo !== ""
-      ) {
-        router.push(
-          `/products?search=${searchText}&price_from=${filterPriceFrom}&price_to=${filterPriceTo}`
-        );
-      } else if (
-        searchText === "" &&
-        filterBrands !== "" &&
-        filterCategory !== "" &&
-        filterPriceFrom === "" &&
-        filterPriceTo === ""
-      ) {
-        router.push(
-          `/products?brand=${filterBrands}&category=${filterCategory}`
-        );
-      } else if (
-        searchText === "" &&
-        filterBrands !== "" &&
-        filterCategory === "" &&
-        filterPriceFrom !== "" &&
-        filterPriceTo !== ""
-      ) {
-        router.push(
-          `/products?brand=${filterBrands}&price_from=${filterPriceFrom}&price_to=${filterPriceTo}`
-        );
-      } else if (
-        searchText === "" &&
-        filterBrands === "" &&
-        filterCategory !== "" &&
-        filterPriceFrom !== "" &&
-        filterPriceTo !== ""
-      ) {
-        router.push(
-          `/products?category=${filterCategory}&price_from=${filterPriceFrom}&price_to=${filterPriceTo}`
-        );
-      } else if (
-        searchText !== "" &&
-        filterBrands !== "" &&
-        filterCategory !== "" &&
-        filterPriceFrom === "" &&
-        filterPriceTo === ""
-      ) {
-        router.push(
-          `/products?search=${searchText}&brand=${filterBrands}&category=${filterCategory}`
-        );
-      } else if (
-        searchText !== "" &&
-        filterBrands === "" &&
-        filterCategory !== "" &&
-        filterPriceFrom !== "" &&
-        filterPriceTo !== ""
-      ) {
-        router.push(
-          `/products?search=${searchText}&category=${filterCategory}&price_from=${filterPriceFrom}&price_to=${filterPriceTo}`
-        );
-      } else if (
-        searchText === "" &&
-        filterBrands !== "" &&
-        filterCategory !== "" &&
-        filterPriceFrom !== "" &&
-        filterPriceTo !== ""
-      ) {
-        router.push(
-          `/products?brand=${filterBrands}&category=${filterCategory}&price_from=${filterPriceFrom}&price_to=${filterPriceTo}`
-        );
+    const url = new URL("https://example.com/products");
+
+    const filterDebounce = setTimeout(() => {
+      if (searchText !== "") {
+        url.searchParams.append("search", searchText);
+      } else {
+        url.searchParams.delete("search");
       }
-      setPageClick(1);
+
+      if (filterBrands !== "") {
+        url.searchParams.append("brand", filterBrands);
+      } else {
+        url.searchParams.delete("brand");
+      }
+
+      if (filterCategory !== "") {
+        url.searchParams.append("category", filterCategory);
+      } else {
+        url.searchParams.delete("category");
+      }
+
+      if (filterPriceFrom !== "") {
+        url.searchParams.append("price_from", filterPriceFrom);
+      } else {
+        url.searchParams.delete("price_from");
+      }
+
+      if (filterPriceTo !== "") {
+        url.searchParams.append("price_to", filterPriceTo);
+      } else {
+        url.searchParams.delete("price_to");
+      }
+
+      router.push(url.pathname + url.search);
     }, 500);
-    return () => {
-      clearTimeout(routerTimeout);
-    };
+
+    return () => clearTimeout(filterDebounce);
   }, [
     searchText,
     filterBrands,

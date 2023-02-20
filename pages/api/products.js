@@ -22,32 +22,37 @@ export default function handler(req, res) {
 
   const productsSearchFilter = products
     .filter((product) => {
-      if (searchQuery !== undefined) {
+      if (searchQuery !== undefined && searchQuery !== "") {
         return product.title.toLowerCase().includes(searchQuery.toLowerCase());
       } else {
         return true;
       }
     })
     .filter((product) => {
-      if (brandQuery !== undefined) {
+      if (brandQuery !== undefined && brandQuery !== "") {
         return product.brand === brandQuery;
       } else {
         return true;
       }
     })
     .filter((product) => {
-      if (categoryQuery !== undefined) {
+      if (categoryQuery !== undefined && categoryQuery !== "") {
         return product.category === categoryQuery;
       } else {
         return true;
       }
     })
     .filter((product) => {
-      if (priceFromQuery !== undefined && priceToQuery !== undefined) {
+      if (
+        priceFromQuery !== undefined &&
+        priceFromQuery !== "" &&
+        priceToQuery !== undefined &&
+        priceToQuery !== ""
+      ) {
         return product.price >= priceFromQuery && product.price <= priceToQuery;
-      } else if (priceFromQuery !== undefined) {
+      } else if (priceFromQuery !== undefined && priceFromQuery !== "") {
         return product.price >= priceFromQuery;
-      } else if (priceToQuery !== undefined) {
+      } else if (priceToQuery !== undefined && priceToQuery !== "") {
         return product.price >= priceToQuery;
       } else {
         return true;
