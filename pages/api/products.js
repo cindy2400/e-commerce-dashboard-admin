@@ -8,7 +8,7 @@ export default function handler(req, res) {
     return;
   }
 
-  const searchQuery = req.query.search?.toLowerCase();
+  const searchQuery = req.query.search;
   const brandQuery = req.query.brand;
   const categoryQuery = req.query.category;
   const priceFromQuery = req.query.price_from;
@@ -20,188 +20,39 @@ export default function handler(req, res) {
   const indexFirst = (currentPage - 1) * itemPerPage;
   const indexLast = indexFirst + itemPerPage;
 
-  let productsSearchFilter = [];
-  if (
-    searchQuery === undefined &&
-    brandQuery === undefined &&
-    categoryQuery === undefined &&
-    priceFromQuery === undefined &&
-    priceToQuery === undefined
-  ) {
-    productsSearchFilter = products;
-  } else if (
-    searchQuery !== undefined &&
-    brandQuery !== undefined &&
-    categoryQuery !== undefined &&
-    priceFromQuery !== undefined &&
-    priceToQuery !== undefined
-  ) {
-    productsSearchFilter = products.filter(
-      (product) =>
-        product.title.toLowerCase().includes(searchQuery) &&
-        product.brand === brandQuery &&
-        product.category === categoryQuery &&
-        product.price >= priceFromQuery &&
-        product.price <= priceToQuery
-    );
-  } else if (
-    searchQuery !== undefined &&
-    brandQuery === undefined &&
-    categoryQuery === undefined &&
-    priceFromQuery === undefined &&
-    priceToQuery === undefined
-  ) {
-    productsSearchFilter = products.filter((product) =>
-      product.title.toLowerCase().includes(searchQuery)
-    );
-  } else if (
-    searchQuery === undefined &&
-    brandQuery !== undefined &&
-    categoryQuery === undefined &&
-    priceFromQuery === undefined &&
-    priceToQuery === undefined
-  ) {
-    productsSearchFilter = products.filter(
-      (product) => product.brand === brandQuery
-    );
-  } else if (
-    searchQuery === undefined &&
-    brandQuery === undefined &&
-    categoryQuery !== undefined &&
-    priceFromQuery === undefined &&
-    priceToQuery === undefined
-  ) {
-    productsSearchFilter = products.filter(
-      (product) => product.category === categoryQuery
-    );
-  } else if (
-    searchQuery === undefined &&
-    brandQuery === undefined &&
-    categoryQuery === undefined &&
-    priceFromQuery !== undefined &&
-    priceToQuery !== undefined
-  ) {
-    productsSearchFilter = products.filter(
-      (product) =>
-        product.price >= priceFromQuery && product.price <= priceToQuery
-    );
-  } else if (
-    searchQuery !== undefined &&
-    brandQuery !== undefined &&
-    categoryQuery === undefined &&
-    priceFromQuery === undefined &&
-    priceToQuery === undefined
-  ) {
-    productsSearchFilter = products.filter(
-      (product) =>
-        product.title.toLowerCase().includes(searchQuery) &&
-        product.brand === brandQuery
-    );
-  } else if (
-    searchQuery !== undefined &&
-    brandQuery == undefined &&
-    categoryQuery !== undefined &&
-    priceFromQuery === undefined &&
-    priceToQuery === undefined
-  ) {
-    productsSearchFilter = products.filter(
-      (product) =>
-        product.title.toLowerCase().includes(searchQuery) &&
-        product.category === categoryQuery
-    );
-  } else if (
-    searchQuery !== undefined &&
-    brandQuery == undefined &&
-    categoryQuery === undefined &&
-    priceFromQuery !== undefined &&
-    priceToQuery !== undefined
-  ) {
-    productsSearchFilter = products.filter(
-      (product) =>
-        product.title.toLowerCase().includes(searchQuery) &&
-        product.price >= priceFromQuery &&
-        product.price <= priceToQuery
-    );
-  } else if (
-    searchQuery === undefined &&
-    brandQuery !== undefined &&
-    categoryQuery !== undefined &&
-    priceFromQuery === undefined &&
-    priceToQuery === undefined
-  ) {
-    productsSearchFilter = products.filter(
-      (product) =>
-        product.brand === brandQuery && product.category === categoryQuery
-    );
-  } else if (
-    searchQuery === undefined &&
-    brandQuery !== undefined &&
-    categoryQuery === undefined &&
-    priceFromQuery !== undefined &&
-    priceToQuery !== undefined
-  ) {
-    productsSearchFilter = products.filter(
-      (product) =>
-        product.brand === brandQuery &&
-        product.price >= priceFromQuery &&
-        product.price <= priceToQuery
-    );
-  } else if (
-    searchQuery === undefined &&
-    brandQuery === undefined &&
-    categoryQuery !== undefined &&
-    priceFromQuery !== undefined &&
-    priceToQuery !== undefined
-  ) {
-    productsSearchFilter = products.filter(
-      (product) =>
-        product.category === categoryQuery &&
-        product.price >= priceFromQuery &&
-        product.price <= priceToQuery
-    );
-  } else if (
-    searchQuery !== undefined &&
-    brandQuery !== undefined &&
-    categoryQuery === undefined &&
-    priceFromQuery !== undefined &&
-    priceToQuery !== undefined
-  ) {
-    productsSearchFilter = products.filter(
-      (product) =>
-        product.title.toLowerCase().includes(searchQuery) &&
-        product.brand === brandQuery &&
-        product.price >= priceFromQuery &&
-        product.price <= priceToQuery
-    );
-  } else if (
-    searchQuery === undefined &&
-    brandQuery !== undefined &&
-    categoryQuery !== undefined &&
-    priceFromQuery !== undefined &&
-    priceToQuery !== undefined
-  ) {
-    productsSearchFilter = products.filter(
-      (product) =>
-        product.brand === brandQuery &&
-        product.category === categoryQuery &&
-        product.price >= priceFromQuery &&
-        product.price <= priceToQuery
-    );
-  } else if (
-    searchQuery !== undefined &&
-    brandQuery === undefined &&
-    categoryQuery !== undefined &&
-    priceFromQuery !== undefined &&
-    priceToQuery !== undefined
-  ) {
-    productsSearchFilter = products.filter(
-      (product) =>
-        product.title.toLowerCase().includes(searchQuery) &&
-        product.category === categoryQuery &&
-        product.price >= priceFromQuery &&
-        product.price <= priceToQuery
-    );
-  }
+  const productsSearchFilter = products
+    .filter((product) => {
+      if (searchQuery !== undefined) {
+        return product.title.toLowerCase().includes(searchQuery.toLowerCase());
+      } else {
+        return true;
+      }
+    })
+    .filter((product) => {
+      if (brandQuery !== undefined) {
+        return product.brand === brandQuery;
+      } else {
+        return true;
+      }
+    })
+    .filter((product) => {
+      if (categoryQuery !== undefined) {
+        return product.category === categoryQuery;
+      } else {
+        return true;
+      }
+    })
+    .filter((product) => {
+      if (priceFromQuery !== undefined && priceToQuery !== undefined) {
+        return product.price >= priceFromQuery && product.price <= priceToQuery;
+      } else if (priceFromQuery !== undefined) {
+        return product.price >= priceFromQuery;
+      } else if (priceToQuery !== undefined) {
+        return product.price >= priceToQuery;
+      } else {
+        return true;
+      }
+    });
 
   const productsPagination =
     productsSearchFilter.length !== 0
