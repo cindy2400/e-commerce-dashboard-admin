@@ -9,7 +9,8 @@ const SidebarMenu = ({ menuName, linkTo }) => {
     <Link
       href={linkTo}
       className={
-        router.pathname === linkTo
+        (linkTo !== "/" && router.pathname.includes(linkTo)) ||
+        (router.pathname === "/" && router.pathname === linkTo)
           ? styles["sidebar-menu-button-active"]
           : styles["sidebar-menu-button"]
       }
