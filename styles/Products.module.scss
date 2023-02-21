@@ -1,7 +1,8 @@
 .container {
   padding: 30px;
-  margin: auto;
+  margin-left: 30px;
   margin-bottom: 30px;
+  margin-right: 30px;
 }
 
 .search-filter-container {
@@ -10,6 +11,7 @@
   justify-content: space-between;
   .select,
   .input {
+    max-width: 150px;
     width: 150px;
     height: 30px;
     border-radius: 10px;
@@ -21,13 +23,15 @@
 @media only screen and (max-width: 768px) {
   .container {
     justify-content: center;
+    margin: auto;
     display: flex;
-    padding-top: 30%;
+    padding-top: 35%;
     margin-top: 0;
     justify-content: space-around;
     flex-direction: column;
   }
   .search-filter-container {
+    min-width: 400px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -35,6 +39,7 @@
     margin-bottom: 20px;
     .select,
     .input {
+      max-width: 150px;
       width: 150px;
       height: 30px;
       border-radius: 10px;
