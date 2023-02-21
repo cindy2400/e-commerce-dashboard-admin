@@ -1,7 +1,13 @@
-import Link from "next/link";
+import { useRouter } from "next/router";
 import styles from "../../styles/List.module.scss";
 
 const ListCarts = ({ carts }) => {
+  const router = useRouter();
+
+  const onTableRowClickHandler = (cartId) => {
+    router.push(`/carts/${cartId}`);
+  };
+
   return (
     <table className={styles.table}>
       <tbody>
@@ -12,23 +18,20 @@ const ListCarts = ({ carts }) => {
           <th>Total products</th>
           <th>Total quantity</th>
         </tr>
-        {carts.map((carts) => {
+        {carts.map((cart) => {
           return (
-            <tr key={carts.id}>
+            <tr
+              key={cart.id}
+              className={styles["tr-hover"]}
+              onClick={() => onTableRowClickHandler(cart.id)}
+            >
               <td>
-                <Link href={`/carts/${carts.id}`}>
-                  <button className={styles["button-detail"]}>
-                    {carts.firstName} {carts.lastName}
-                  </button>
-                </Link>
+                {cart.firstName} {cart.lastName}
               </td>
-              <td>{carts.total}</td>
-              <td>{carts.discountedTotal}</td>
-              <td>{carts.totalProducts}</td>
-              <td>{carts.totalQuantity}</td>
-              {/* <td>
-                <Link href={`/carts/${carts.id}`}>Detail</Link>
-              </td> */}
+              <td>{cart.total}</td>
+              <td>{cart.discountedTotal}</td>
+              <td>{cart.totalProducts}</td>
+              <td>{cart.totalQuantity}</td>
             </tr>
           );
         })}
