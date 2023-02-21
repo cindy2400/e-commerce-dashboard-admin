@@ -13,3 +13,9 @@ $container-color: rgb(198, 180, 255);
   margin-bottom: 30px;
   background-color: $container-color;
 }
+
+@media only screen and (max-width: 768px) {
+  .container {
+    padding-top: 10%;
+  }
+}

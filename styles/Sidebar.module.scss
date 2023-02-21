@@ -4,6 +4,8 @@ $sidebar-color: rgb(163, 136, 253);
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: sticky;
+  top: 0;
   width: 20%;
   height: 100vh;
   background-color: $sidebar-color;
@@ -12,6 +14,8 @@ $sidebar-color: rgb(163, 136, 253);
 
 @media only screen and (max-width: 768px) {
   .sidebar {
+    position: fixed;
+    justify-content: center;
     width: 100%;
     height: 10%;
     display: flex;
