@@ -1,3 +1,5 @@
+import Dropdown from "@/components/layout/Dropdown";
+import Input from "@/components/layout/Input";
 import Pagination from "@/components/layout/Pagination";
 import SearchBar from "@/components/layout/SearchBar";
 import ListProducts from "@/components/products/ListProducts";
@@ -134,43 +136,27 @@ const Products = ({ products, brands, categories }) => {
       <h2>Products</h2>
       <div className={styles["search-filter-container"]}>
         <SearchBar value={searchText} setSearchText={setSearchText} />
-        <select
-          className={styles.select}
-          value={filterBrands}
-          onChange={(e) => setFilterBrands(e.target.value)}
-        >
-          <option value="">All</option>
-          {brands.map((brand) => (
-            <option key={brand} value={brand}>
-              {brand}
-            </option>
-          ))}
-        </select>
-        <select
-          className={styles.select}
-          value={filterCategory}
-          onChange={(e) => setFilterCategory(e.target.value)}
-        >
-          <option value="">All</option>
-          {categories.map((singleCategory) => (
-            <option key={singleCategory} value={singleCategory}>
-              {singleCategory}
-            </option>
-          ))}
-        </select>
-        <input
+        <Dropdown
+          filter={filterBrands}
+          onChangeHandler={setFilterBrands}
+          items={brands}
+        />
+        <Dropdown
+          filter={filterCategory}
+          onChangeHandler={setFilterCategory}
+          items={categories}
+        />
+        <Input
           type="number"
           placeholder="Price from"
           value={filterPriceFrom}
-          className={styles.input}
-          onChange={(e) => setFilterPriceFrom(e.target.value)}
+          onChangeHandler={setFilterPriceFrom}
         />
-        <input
+        <Input
           type="number"
           placeholder="Price to"
           value={filterPriceTo}
-          className={styles.input}
-          onChange={(e) => setFilterPriceTo(e.target.value)}
+          onChangeHandler={setFilterPriceTo}
         />
       </div>
 
