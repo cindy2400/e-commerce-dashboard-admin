@@ -9,52 +9,77 @@ import styles from "../../styles/Products.module.scss";
 const Products = ({ products, brands, categories }) => {
   const router = useRouter();
   const [productsState, setProductState] = useState(products);
+
+  const { search, brand, category, price_from, price_to, page } = router.query;
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemPerPage, setItemPerPage] = useState("");
+  const [totalItems, setTotalItems] = useState("");
+
   const [searchText, setSearchText] = useState("");
   const [filterBrands, setFilterBrands] = useState("");
   const [filterCategory, setFilterCategory] = useState("");
   const [filterPriceFrom, setFilterPriceFrom] = useState("");
   const [filterPriceTo, setFilterPriceTo] = useState("");
-  const [page, setPage] = useState("");
-  const [pageClick, setPageClick] = useState("");
-  const [itemPerPage, setItemPerPage] = useState("");
-  const [totalItems, setTotalItems] = useState("");
-
-  const { search, brand, category, price_from, price_to } = router.query;
 
   useEffect(() => {
+    setSearchText(search || "");
+    setFilterBrands(brand || "");
+    setFilterCategory(category || "");
+    setFilterPriceFrom(price_from || "");
+    setFilterPriceTo(price_to || "");
+
     if (
       search === undefined &&
       brand === undefined &&
       category === undefined &&
       price_from === undefined &&
-      price_to === undefined
+      price_to === undefined &&
+      page === 1
     ) {
       return;
     }
     fetch(
       `/api/products?search=${search || ""}&brand=${brand || ""}&category=${
         category || ""
-      }&price_from=${price_from || ""}&price_to=${
-        price_to || ""
-      }&page=${pageClick}`
+      }&price_from=${price_from || ""}&price_to=${price_to || ""}&page=${page}`
     )
       .then((res) => res.json())
       .then((data) => {
         setProductState(data.data.products);
-        setPage(data.data.page);
+        setCurrentPage(data.data.page);
         setItemPerPage(data.data.item_per_page);
         setTotalItems(data.data.total_items);
       });
-  }, [search, brand, category, price_from, price_to, pageClick]);
+  }, [search, brand, category, price_from, price_to, page]);
 
   useEffect(() => {
+    const searchTimeout = setTimeout(() => {
+      if (searchText === "") {
+        router.push("/products");
+      } else {
+        router.push(`/products?search=${searchText}`);
+      }
+    }, 500);
+    return () => clearTimeout(searchTimeout);
+  }, [searchText]);
+
+  useEffect(() => {
+    if (
+      search === undefined &&
+      filterBrands === "" &&
+      filterCategory === "" &&
+      filterPriceFrom === "" &&
+      filterPriceTo === "" &&
+      currentPage === ""
+    ) {
+      return;
+    }
     const url = new URL("https://example.com/products");
 
     const filterDebounce = setTimeout(() => {
-      if (searchText !== "") {
-        url.searchParams.append("search", searchText);
-      } else {
-        url.searchParams.delete("search");
+      if (search !== undefined) {
+        url.searchParams.append("search", search);
       }
 
       if (filterBrands !== "") {
@@ -81,20 +106,27 @@ const Products = ({ products, brands, categories }) => {
         url.searchParams.delete("price_to");
       }
 
+      if (currentPage !== "") {
+        url.searchParams.append("page", currentPage);
+      } else {
+        url.searchParams.delete("page");
+      }
+
       router.push(url.pathname + url.search);
     }, 500);
 
     return () => clearTimeout(filterDebounce);
   }, [
-    searchText,
+    search,
     filterBrands,
     filterCategory,
     filterPriceFrom,
     filterPriceTo,
+    currentPage,
   ]);
 
   const paginateHandler = (pageNumbers) => {
-    setPageClick(pageNumbers);
+    setCurrentPage(pageNumbers);
   };
 
   return (
@@ -151,7 +183,7 @@ const Products = ({ products, brands, categories }) => {
             itemsPerPage={itemPerPage}
             totalItems={totalItems}
             paginateHandler={paginateHandler}
-            currentPage={page}
+            currentPage={page || 1}
           />
         </>
       )}
